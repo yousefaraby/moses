@@ -1,0 +1,632 @@
+/* ==========================================================================
+   Primitives: buttons, fields, chips, surfaces, mist, page veil
+   ========================================================================== */
+
+.icon {
+  flex: none;
+}
+html[dir='rtl'] .flip {
+  transform: scaleX(-1);
+}
+
+/* Buttons ----------------------------------------------------------------- */
+.btn {
+  --btn-bg: transparent;
+  --btn-fg: var(--text);
+  --btn-bd: var(--line-strong);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 50px;
+  padding: 0 26px;
+  border-radius: var(--r-pill);
+  border: 1.5px solid var(--btn-bd);
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.2;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background-color 0.18s var(--ease-out),
+    border-color 0.18s var(--ease-out),
+    color 0.18s var(--ease-out),
+    transform 0.12s var(--ease-out);
+  user-select: none;
+}
+.btn:active {
+  transform: translateY(1px) scale(0.99);
+}
+.btn[disabled],
+.btn[aria-disabled='true'] {
+  opacity: 0.45;
+  pointer-events: none;
+}
+.btn-primary {
+  --btn-bg: var(--copper);
+  --btn-fg: #111;
+  --btn-bd: var(--copper);
+  box-shadow: 0 10px 24px -12px rgb(245 146 47 / 0.7);
+}
+.btn-primary:hover {
+  --btn-bg: var(--copper-hover);
+  --btn-bd: var(--copper-hover);
+}
+.btn-primary:active {
+  --btn-bg: var(--copper-press);
+  --btn-bd: var(--copper-press);
+}
+/* The shine: a specular streak crosses polished copper on hover/focus. */
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  inset: -40% auto -40% 0;
+  width: 46%;
+  background: linear-gradient(100deg, transparent 0%, rgb(255 255 255 / 0.55) 48%, transparent 100%);
+  transform: translateX(-140%) skewX(-18deg);
+  z-index: -1;
+  pointer-events: none;
+}
+.btn-primary:hover::after,
+.btn-primary:focus-visible::after,
+.btn-primary.is-shining::after {
+  animation: shine 0.9s var(--ease-out) forwards;
+}
+@keyframes shine {
+  to {
+    transform: translateX(320%) skewX(-18deg);
+  }
+}
+.btn-ghost {
+  --btn-bd: rgb(255 255 255 / 0.7);
+}
+.btn-ghost:hover {
+  --btn-bg: rgb(255 255 255 / 0.08);
+  --btn-bd: var(--white);
+}
+.btn-quiet {
+  --btn-bd: transparent;
+  padding-inline: 12px;
+  color: var(--text-2);
+}
+.btn-quiet:hover {
+  color: var(--white);
+  --btn-bg: rgb(255 255 255 / 0.06);
+}
+.btn-lg {
+  min-height: 58px;
+  padding-inline: 34px;
+  font-size: 17px;
+}
+.btn-dark {
+  --btn-bg: #111;
+  --btn-fg: #fff;
+  --btn-bd: #111;
+}
+.btn-dark:hover {
+  --btn-bg: #000;
+}
+.btn-round {
+  width: 46px;
+  min-height: 46px;
+  padding: 0;
+  border-radius: 50%;
+}
+.btn-sm {
+  min-height: 40px;
+  padding-inline: 16px;
+  font-size: 14px;
+}
+.btn-block {
+  width: 100%;
+}
+.btn-icon {
+  min-width: 48px;
+  padding: 0;
+}
+.link {
+  color: var(--copper-ink);
+  text-decoration: underline;
+  text-decoration-color: rgb(192 122 49 / 0.5);
+}
+.link:hover {
+  text-decoration-color: currentColor;
+}
+.text-btn {
+  background: none;
+  border: 0;
+  padding: 0;
+  color: var(--copper-ink);
+  text-decoration: underline;
+  text-underline-offset: 0.22em;
+  min-height: 44px;
+}
+
+/* Fields ------------------------------------------------------------------ */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.field > label,
+.field > .label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-2);
+}
+.field .hint {
+  font-size: 13px;
+  color: var(--muted);
+}
+.field .error {
+  font-size: 13px;
+  color: var(--danger);
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+.input,
+.select,
+.textarea {
+  width: 100%;
+  min-height: 52px;
+  padding: 0 16px;
+  border-radius: var(--r-md);
+  border: 1px solid var(--line-strong);
+  background: var(--charcoal-2);
+  color: var(--white);
+  font-size: 16px;
+  transition: border-color 0.15s, background-color 0.15s;
+}
+.textarea {
+  padding: 14px 16px;
+  min-height: 112px;
+  resize: vertical;
+}
+.select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23b5b5b5' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-inline-end: 44px;
+}
+html[dir='rtl'] .select {
+  background-position: left 14px center;
+}
+.input::placeholder,
+.textarea::placeholder {
+  color: #8c8c8c;
+}
+.input:hover,
+.select:hover,
+.textarea:hover {
+  border-color: #555;
+}
+.input:focus,
+.select:focus,
+.textarea:focus {
+  outline: none;
+  border-color: var(--copper);
+  background: #0c0c0c;
+  box-shadow: 0 0 0 3px rgb(192 122 49 / 0.25);
+}
+.input[aria-invalid='true'],
+.textarea[aria-invalid='true'] {
+  border-color: var(--danger);
+}
+.form-grid {
+  display: grid;
+  gap: var(--s-4);
+}
+@media (min-width: 768px) {
+  .form-grid.two {
+    grid-template-columns: 1fr 1fr;
+  }
+  .form-grid .span-2 {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Choice tiles (radio/checkbox styled as cards).
+   Selected = orange border + round check badge on the corner (reference). */
+.choice {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 68px;
+  padding: 16px 18px;
+  border-radius: var(--r-lg);
+  border: 1.5px solid var(--line);
+  background: var(--raised);
+  cursor: pointer;
+  transition: border-color 0.18s var(--ease-out), background-color 0.18s var(--ease-out), transform 0.18s var(--ease-out);
+  text-align: start;
+  width: 100%;
+  color: inherit;
+}
+.choice:hover {
+  border-color: #4a4f57;
+}
+.choice input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.choice:has(input:focus-visible) {
+  outline: 2px solid var(--copper-hover);
+  outline-offset: 3px;
+}
+.choice.is-on,
+.choice:has(input:checked) {
+  border-color: var(--copper);
+  background: linear-gradient(0deg, rgb(245 146 47 / 0.07), rgb(245 146 47 / 0.07)), var(--raised);
+}
+.choice .tick {
+  position: absolute;
+  top: -11px;
+  inset-inline-end: -11px;
+  width: 26px;
+  height: 26px;
+  border-radius: var(--r-pill);
+  display: grid;
+  place-items: center;
+  color: #111;
+  background: var(--copper);
+  border: 3px solid var(--black);
+  flex: none;
+  transform: scale(0);
+  transition: transform 0.22s var(--ease-out);
+}
+.choice.is-on .tick,
+.choice:has(input:checked) .tick {
+  transform: scale(1);
+}
+.choice .tick .icon {
+  opacity: 1;
+}
+.choice .tick.square {
+  position: static;
+  order: 99;
+  transform: none;
+  border-radius: 8px;
+  background: transparent;
+  border: 1.5px solid var(--line-strong);
+  color: transparent;
+}
+.choice.is-on .tick.square,
+.choice:has(input:checked) .tick.square {
+  background: var(--copper);
+  border-color: var(--copper);
+  color: #111;
+}
+.choice-icon {
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  background: rgb(255 255 255 / 0.06);
+  color: var(--muted);
+}
+.choice.is-on .choice-icon,
+.choice:has(input:checked) .choice-icon {
+  background: rgb(245 146 47 / 0.14);
+  color: var(--copper);
+}
+
+/* Segmented control */
+.segmented {
+  display: inline-flex;
+  padding: 4px;
+  gap: 4px;
+  border-radius: var(--r-pill);
+  background: var(--raised);
+  border: 1px solid var(--line);
+  max-width: 100%;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.segmented button {
+  min-height: 44px;
+  padding: 0 16px;
+  border-radius: var(--r-pill);
+  border: 0;
+  background: transparent;
+  color: var(--text-2);
+  font-weight: 500;
+  font-size: 15px;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.18s var(--ease-out), color 0.18s var(--ease-out);
+}
+.segmented button:hover {
+  color: var(--white);
+}
+.segmented button[aria-pressed='true'] {
+  background: var(--copper);
+  color: #111;
+  font-weight: 600;
+}
+
+/* Chips, pills, badges */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 28px;
+  padding: 0 12px;
+  border-radius: var(--r-pill);
+  background: var(--raised);
+  color: var(--text-2);
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.chip.copper {
+  background: var(--copper);
+  color: #111;
+  font-weight: 600;
+}
+.chip.outline {
+  background: transparent;
+  border: 1px solid var(--line-strong);
+}
+.chip.frost {
+  background: rgb(var(--frost-rgb) / 0.12);
+  color: var(--frost);
+}
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 28px;
+  padding: 0 12px;
+  border-radius: var(--r-pill);
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+  background: var(--raised);
+  color: var(--text-2);
+}
+.status::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.status-booked {
+  color: var(--frost);
+  background: rgb(var(--frost-rgb) / 0.1);
+}
+.status-checked_in {
+  color: #e9e2d2;
+  background: #2c2a25;
+}
+.status-washing {
+  color: var(--copper-ink);
+  background: rgb(192 122 49 / 0.14);
+  border: 1px solid rgb(192 122 49 / 0.5);
+}
+.status-ready {
+  background: var(--copper);
+  color: #111;
+}
+.status-completed {
+  color: var(--ok);
+  background: rgb(159 217 185 / 0.1);
+}
+.status-cancelled,
+.status-no_show {
+  color: #a0a0a0;
+  background: #1c1c1c;
+  text-decoration: line-through;
+  text-decoration-color: rgb(255 255 255 / 0.3);
+}
+
+/* Surfaces ---------------------------------------------------------------- */
+.surface {
+  background: var(--charcoal);
+  border: 1px solid var(--line);
+  border-radius: var(--r-xl);
+  padding: var(--s-5);
+}
+.surface.flat {
+  border-color: transparent;
+}
+.notice {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 14px 16px;
+  border-radius: var(--r-md);
+  background: rgb(var(--frost-rgb) / 0.07);
+  border: 1px solid rgb(var(--frost-rgb) / 0.16);
+  color: var(--frost);
+  font-size: 14px;
+}
+.notice.copper {
+  background: rgb(192 122 49 / 0.1);
+  border-color: rgb(192 122 49 / 0.4);
+  color: var(--copper-ink);
+}
+.notice.danger {
+  background: rgb(255 155 138 / 0.08);
+  border-color: rgb(255 155 138 / 0.35);
+  color: var(--danger);
+}
+.notice.ok {
+  background: rgb(159 217 185 / 0.08);
+  border-color: rgb(159 217 185 / 0.35);
+  color: var(--ok);
+}
+
+.stars {
+  display: inline-flex;
+  gap: 2px;
+  color: var(--copper);
+}
+.stars .icon {
+  fill: currentColor;
+}
+.stars .off {
+  color: var(--line-strong);
+}
+
+/* Dry-ice mist ------------------------------------------------------------ */
+/* Soft frost clouds drifting slowly. Gradients only: no blur filters. */
+.mist {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.mist i {
+  position: absolute;
+  width: 70%;
+  aspect-ratio: 1.6;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgb(var(--frost-rgb) / 0.22), rgb(var(--frost-rgb) / 0.08) 55%, transparent);
+  animation: drift 22s var(--ease-in-out) infinite alternate;
+  will-change: transform;
+}
+.mist i:nth-child(1) {
+  inset-inline-start: -20%;
+  bottom: -18%;
+}
+.mist i:nth-child(2) {
+  inset-inline-start: 25%;
+  bottom: -30%;
+  width: 80%;
+  animation-duration: 28s;
+  animation-delay: -8s;
+  opacity: 0.8;
+}
+.mist i:nth-child(3) {
+  inset-inline-end: -25%;
+  bottom: -10%;
+  width: 60%;
+  animation-duration: 19s;
+  animation-delay: -4s;
+  opacity: 0.7;
+}
+@keyframes drift {
+  from {
+    transform: translate3d(-6%, 4%, 0) scale(1);
+  }
+  to {
+    transform: translate3d(8%, -6%, 0) scale(1.15);
+  }
+}
+
+/* Page veil: a frost front wipes across and clears on every navigation. */
+.veil {
+  position: fixed;
+  inset: 0;
+  z-index: 150;
+  pointer-events: none;
+  background:
+    radial-gradient(60% 50% at 20% 40%, rgb(var(--frost-rgb) / 0.9), transparent 70%),
+    radial-gradient(50% 60% at 60% 70%, rgb(var(--frost-rgb) / 0.75), transparent 70%),
+    radial-gradient(70% 60% at 90% 30%, rgb(var(--frost-rgb) / 0.6), transparent 70%),
+    rgb(12 14 15 / 0.55);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, transparent 33%, #000 50%, #000 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, transparent 33%, #000 50%, #000 100%);
+  -webkit-mask-size: 300% 100%;
+  mask-size: 300% 100%;
+  -webkit-mask-position: 100% 0;
+  mask-position: 100% 0;
+  animation: veil-clear 0.75s var(--ease-out) forwards;
+}
+html[dir='rtl'] .veil {
+  transform: scaleX(-1);
+}
+@keyframes veil-clear {
+  0% {
+    -webkit-mask-position: 100% 0;
+    mask-position: 100% 0;
+    opacity: 0.9;
+  }
+  100% {
+    -webkit-mask-position: 0% 0;
+    mask-position: 0% 0;
+    opacity: 0;
+  }
+}
+.page-enter {
+  animation: page-in 0.6s var(--ease-out) both;
+}
+/* Opacity only: a transform here would trap position:fixed children. */
+@keyframes page-in {
+  from {
+    opacity: 0.35;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .veil {
+    display: none;
+  }
+  .page-enter {
+    animation: none;
+  }
+  .mist i {
+    animation: none;
+  }
+}
+
+/* Spinner (polisher pad) */
+.spinner {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Skeleton */
+.skeleton {
+  background: linear-gradient(90deg, var(--charcoal) 0%, #222 50%, var(--charcoal) 100%);
+  background-size: 200% 100%;
+  animation: skel 1.4s linear infinite;
+  border-radius: var(--r-sm);
+}
+@keyframes skel {
+  to {
+    background-position: -200% 0;
+  }
+}
+
+/* Dialog */
+dialog.sheet {
+  border: 1px solid var(--line);
+  background: var(--charcoal);
+  color: var(--text);
+  border-radius: var(--r-lg);
+  padding: 0;
+  width: min(560px, calc(100% - 24px));
+  max-height: calc(100dvh - 48px);
+}
+dialog.sheet::backdrop {
+  background: rgb(0 0 0 / 0.7);
+}
+.sheet-body {
+  padding: var(--s-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+}

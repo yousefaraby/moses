@@ -1,0 +1,21 @@
+{
+  "name": "moses-detailing",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Moses Detailing — dry-ice car wash booking system (Arabic + English).",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "reset-data": "node scripts/reset-data.mjs"
+  },
+  "dependencies": {
+    "next": "16.4.6",
+    "qrcode": "1.5.4",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  },
+  "engines": {
+    "node": ">=20.9.0"
+  }
+}

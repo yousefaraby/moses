@@ -1,0 +1,83 @@
+{
+  "name": "Moses Detailing",
+  "mode": {
+    "site": "persuade",
+    "booking": "operate",
+    "admin": "operate"
+  },
+  "color": {
+    "copper": "#F5922F",
+    "copperHover": "#FFA64D",
+    "copperPressed": "#D9781A",
+    "copperInk": "#FFB066",
+    "black": "#0B0C0E",
+    "charcoal": "#15171A",
+    "charcoal2": "#101114",
+    "raised": "#1F2125",
+    "line": "#26292E",
+    "lineStrong": "#363A41",
+    "text": "#FFFFFF",
+    "text2": "#D5D7DB",
+    "muted": "#A9ADB4",
+    "frost": "#E6EEF2",
+    "danger": "#FF9B8A",
+    "ok": "#8FE0B0",
+    "paper": "#F4F3F3",
+    "ink": "#141518",
+    "ink2": "#4A4D53"
+  },
+  "font": {
+    "displayLatin": "Kanit 800 italic",
+    "numbersLatin": "Kanit 600-800",
+    "displayArabic": "Readex Pro 700",
+    "body": "Readex Pro"
+  },
+  "grid": {
+    "desktop": {
+      "min": 1200,
+      "columns": 12,
+      "margin": 80,
+      "gutter": 24
+    },
+    "tablet": {
+      "min": 768,
+      "columns": 8,
+      "margin": 40,
+      "gutter": 24
+    },
+    "mobile": {
+      "min": 0,
+      "columns": 4,
+      "margin": 20,
+      "gutter": 16
+    },
+    "maxContent": 1280
+  },
+  "spacing": [
+    4,
+    8,
+    12,
+    16,
+    24,
+    32,
+    48,
+    64,
+    96
+  ],
+  "radius": {
+    "none": 0,
+    "xs": 4,
+    "sm": 8,
+    "md": 12,
+    "lg": 20,
+    "xl": 32,
+    "panel": 32,
+    "pill": 999
+  },
+  "motion": {
+    "ease": "cubic-bezier(0.16, 1, 0.3, 1)",
+    "veil": "0.75s",
+    "shine": "0.9s"
+  },
+  "reference": "Speed Wash dashboard UI (client reference, Nov 2026)"
+}
